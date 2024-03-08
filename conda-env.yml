@@ -1,0 +1,18 @@
+name: hr_brca_16_466
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - r-essentials==4.1
+  - python==3.8.12
+  - ipykernel
+  - pip
+  - jags
+  - clang
+  - r-rjags
+  - r-devtools
+  - r-argparse
+  - r-remotes
+  - r-biocmanager
+  - r-optparse
+  - bioconductor-dropletutils

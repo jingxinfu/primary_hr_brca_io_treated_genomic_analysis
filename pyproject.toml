@@ -1,0 +1,116 @@
+[build-system]
+build-backend = "flit_core.buildapi"
+requires = [
+    "flit_core >=3.4,<4",
+    "setuptools_scm",
+    "tomli",
+]
+
+[project]
+name = "src"
+description = "Analysis scripts and workspace parameters for the HR_BrCa_16-466"
+requires-python = ">=3.8"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Jingxin Fu"},
+]
+maintainers = [
+    {name = "Jingxin Fu", email = "jingxin@broadinstitute.org"},
+]
+readme = "README.md"
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: BSD License",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3.8",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Topic :: Scientific/Engineering :: Breast Cancer",
+]
+dependencies = [
+    "pandas",
+    "firecloud",
+    "tenacity",
+    "upsetplot",
+    "sklearn",
+    "seaborn",
+    "adjustText",
+    "openpyxl",
+    "statannotations",
+    "comut",
+    "colorlog",
+    "statsmodels",
+    "gseapy",
+    "xlrd",
+    "tidepy",
+    "Bioplots",
+    "distinctipy",
+    "xlsxwriter",
+    "SigProfilerAssignment",
+]
+dynamic = ["version"]
+
+[project.urls]
+Documentation = "https://jingxinfu.github.io/HR_BrCa_16-466/buildIt/html/index.html"
+Source = "https://github.com/jingxinfu/HR_BrCa_16-466"
+Home-page = "https://jingxinfu.github.io/HR_BrCa_16-466/buildIt/html/index.html"
+
+[project.scripts]
+make_wes_dataset = "src.dataset:wesDataset.main"
+make_rna_dataset = "src.dataset:rnaDataset.main"
+analyze_landscape = "src.models:landscape.main"
+analyze_feature = "src.models:downstream_features.main"
+analyze_mutation = "src.models:mutation.main"
+analyze_rna = "src.models:rna.main"
+
+[project.optional-dependencies]
+test = [
+    "tox",
+    "pytest>=4.4"
+]
+
+doc = [
+    "sphinx>=4.1,<4.2",
+    "m2r2",
+    "sphinx-rtd-theme>=0.3.1",
+    "sphinx-math-dollar"
+]
+
+dev = [
+    # getting the dev version
+    "setuptools_scm",
+    # static checking
+    "black>=20.8b1",
+    "docutils",
+    "scanpy"
+]
+
+
+[tool.flit.sdist]
+exclude = [
+    "src/tests",
+    "setup.py",
+]
+
+[tool.pytest.ini_options]
+python_files = "test_*.py"
+testpaths = "src/tests/"
+filterwarnings = ["ignore::DeprecationWarning","ignore::FutureWarning"]
+addopts = "-s"
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["*/tests/*"]
+
+[tool.black]
+line-length = 88
+target-version = ["py38"]
+skip-string-normalization = true
+exclude = """
+/build/.*
+"""
+
+# packages path, to exclude irrelavent folders
+[tool.setuptools.packages.find]
+where = ["src"]
+namespaces = true
