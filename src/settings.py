@@ -111,9 +111,20 @@ COLOR_PAlETTE = {
         'LumA': 'lightgreen',
         'Her2': 'purple',
     },
+    "Tumor type": {
+        'Normal': 'steelblue',
+        'Basal': 'orange',
+        'LumA': 'lightgreen',
+        'LumB': 'yellow',
+        'Her2': 'purple',
+    },
     "er_status":{
         "Weakly Positive (1-10% cell staining)":"red",
         "Positive (>10% cell staining)":"green"
+    },
+    "HR status":{
+        "HR-low positive":"red",
+        "HR positive":"green"
     },
     
 }

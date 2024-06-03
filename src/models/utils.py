@@ -707,7 +707,7 @@ class bulkAnalysis:
                     organism='Human',
                     outdir='reports/enrichr_kegg/{comparison}_{method}_{test_name}',
                     no_plot=False,
-                    cutoff=0.5,  # This argument control the terms (e.g FDR < 0.05) that will be shown on figures, not the result table output.
+                    cutoff=0.05,  # This argument control the terms (e.g FDR < 0.05) that will be shown on figures, not the result table output.
                 )
                 print(enr.results.head())
             except Exception as e:

@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from statannotations.Annotator import Annotator
 from ..settings  import COLOR_PAlETTE
 
-def responsePlot_highlight_er_low(data,features,ncols):
+def responsePlot_highlight_er_low(data,features,ncols,ylabel='signature'):
     df = data[features+['Treatment_Arm','BestResponse','er_status']].copy()
     fig,axs = plt.subplots(2,ncols,figsize=(4*ncols,6),sharex=False,sharey=False)
     order=['Chemo->ICI','ICI->Chemo']
@@ -17,15 +17,15 @@ def responsePlot_highlight_er_low(data,features,ncols):
                       palette=COLOR_PAlETTE[hue],size=7)
     
         sns.stripplot(data = df.loc[df.er_status=='Weakly Positive (1-10% cell staining)'],x=x,y=y,hue=hue,ax=ax,order=hue_order,
-                      palette=COLOR_PAlETTE[hue],marker='X', linewidth=1,edgecolor='red',label='ER low',size=7)
+                      palette=COLOR_PAlETTE[hue],marker='X', linewidth=1,edgecolor='red',label='HR low',size=7)
         annot = Annotator(ax, pairs=[('0-I','II-III')],data=df, x=x, y=y,order=hue_order)
         annot.configure(test='Mann-Whitney', text_format='full', loc='outside', verbose=0)
         annot._pvalue_format.pvalue_format_string='{:.2g}'
         annot.apply_test()
         annot.annotate()
 
-        ax.set(ylabel='',xlabel='')
-        ax.set_title(y.replace('bulkRNA_','').replace('WES_',''),y=1.3)
+        ax.set(ylabel=ylabel if i==0 else '',xlabel='')
+        ax.set_title(y.replace('bulkRNA_','').replace('WES_','').replace('_ssGSEA',''),y=1.3)
         if i > 0:
             ax.legend_.remove()
         else:
@@ -40,7 +40,7 @@ def responsePlot_highlight_er_low(data,features,ncols):
                       palette=COLOR_PAlETTE[hue],size=7,dodge=True)
     
         sns.stripplot(data = df.loc[df.er_status=='Weakly Positive (1-10% cell staining)'],x=x,y=y,hue=hue,ax=ax,order=order,
-                      palette=COLOR_PAlETTE[hue],marker='X', linewidth=1,edgecolor='red',label='ER low',size=7,dodge=True)
+                      palette=COLOR_PAlETTE[hue],marker='X', linewidth=1,edgecolor='red',label='HR low',size=7,dodge=True)
         annot = Annotator(ax, pairs=[
             (('Chemo->ICI','0-I'),('Chemo->ICI','II-III')),
             (('ICI->Chemo','0-I'),('ICI->Chemo','II-III')),
@@ -50,7 +50,7 @@ def responsePlot_highlight_er_low(data,features,ncols):
         annot._pvalue_format.pvalue_format_string='{:.2g}'
         annot.apply_test()
         annot.annotate()
-        ax.set(ylabel='',xlabel='')
+        ax.set(ylabel=ylabel if i==0 else '',xlabel='')
         ax.tick_params(axis='x', labelrotation = 90)
         ax.legend_.remove()
 

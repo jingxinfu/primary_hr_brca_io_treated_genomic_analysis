@@ -238,14 +238,21 @@ def main(data_processed_folder):
                             (metadata.WES_Profile==True)#&(metadata.Timepoint=='Baseline')
                             ,:]
     timepoint ='Baseline'
+    metadata.rename(columns={'er_status':'HR status','BluePrint':'Tumor type'},inplace=True)
+    metadata['HR status'] = metadata['HR status'].replace(
+        {
+        "Weakly Positive (1-10% cell staining)":"HR-low positive",
+        "Positive (>10% cell staining)":"HR positive"
+        }
+    )
     comut_plot = plot_comut(
         mutation_data=dataset.load('somatic_mutation'),
         metadata=metadata.loc[metadata.Timepoint==timepoint,:],
         visual_category_columns=[
             'Treatment_Arm',
             'RCB',
-            'BluePrint',
-            'er_status',
+            'Tumor type',
+            'HR status',
             'WES_facets_wgd_bool'
         ],
         visual_continuous_columns=[
