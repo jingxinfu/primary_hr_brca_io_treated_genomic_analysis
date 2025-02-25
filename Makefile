@@ -60,7 +60,7 @@ analyze_mutation:
 
 ## Generate Comut plot
 gen_comut:
-	analyze_landscape data/processed 
+	analyze_landscape data/processed
 
 ## Analyze bulk RNA-seq data from the processed data folder
 analyze_rna:

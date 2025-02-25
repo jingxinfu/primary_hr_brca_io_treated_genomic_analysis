@@ -209,21 +209,21 @@ def plot_comut(
             'Mutational\nsignatures', rotation='horizontal', ha='right', va='center'
         )
         
-    # color bars must be added manually based on figure coordinates - [left, bottom, width, height]
-    pfs_ax =comut_plot.figure.add_axes([.85, 0, 0.08, 0.014])
-    # purity ranges 
-    norm = matplotlib.colors.Normalize(vmin=metadata[visual_continuous_columns[0]].min(), 
-                                       vmax=metadata[visual_continuous_columns[0]].max())
+    # # color bars must be added manually based on figure coordinates - [left, bottom, width, height]
+    # pfs_ax =comut_plot.figure.add_axes([.85, 0, 0.08, 0.014])
+    # # purity ranges 
+    # norm = matplotlib.colors.Normalize(vmin=metadata[visual_continuous_columns[0]].min(), 
+    #                                    vmax=metadata[visual_continuous_columns[0]].max())
 
-    # create the colorbar with colormap used when the continuous data was added (purp_7)
-    pfs_colorbar = comut_plot.figure.colorbar(matplotlib.cm.ScalarMappable(norm=norm, cmap='Purples'),
-                                                    cax=pfs_ax, orientation='horizontal')
+    # # create the colorbar with colormap used when the continuous data was added (purp_7)
+    # pfs_colorbar = comut_plot.figure.colorbar(matplotlib.cm.ScalarMappable(norm=norm, cmap='Purples'),
+    #                                                 cax=pfs_ax, orientation='horizontal')
 
-    # remove tick marks and move tick labels slightly inwards. Also remove black border
-    pfs_colorbar.ax.tick_params(size=0)
-    pfs_colorbar.outline.set_visible(False)
-    # set title of colorbar to line up with other legend elements
-    pfs_colorbar.set_label('Tumor Purity',labelpad = -40, x = .5, fontsize = 12)
+    # # remove tick marks and move tick labels slightly inwards. Also remove black border
+    # pfs_colorbar.ax.tick_params(size=0)
+    # pfs_colorbar.outline.set_visible(False)
+    # # set title of colorbar to line up with other legend elements
+    # pfs_colorbar.set_label('Tumor Purity',labelpad = -40, x = .5, fontsize = 12)
     
     return comut_plot
 
@@ -253,10 +253,10 @@ def main(data_processed_folder):
             'RCB',
             'Tumor type',
             'HR status',
-            'WES_facets_wgd_bool'
+            # 'WES_facets_wgd_bool'
         ],
         visual_continuous_columns=[
-            'WES_absolute_purity'
+            # 'WES_absolute_purity'
             ],
         mutation_signature_columns=[
             'WES_'+x for x in COLOR_PAlETTE['Mutation_Signature'].keys() if x != 'N/A'
@@ -268,5 +268,5 @@ def main(data_processed_folder):
     n_samples = (metadata.Timepoint==timepoint).sum()
     comut_plot.figure.suptitle(f"{timepoint} (N={ n_samples})")
     comut_plot.figure.savefig(
-        FigureDir / f'Somatic_Mutation_CoMutPlot_{timepoint}.svg', bbox_inches='tight', dpi=300
+        FigureDir / f'Somatic_Mutation_CoMutPlot_{timepoint}.pdf', bbox_inches='tight', dpi=300
     )
