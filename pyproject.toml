@@ -32,7 +32,7 @@ dependencies = [
     "firecloud",
     "tenacity",
     "upsetplot",
-    "sklearn",
+    "scikit-learn",
     "seaborn",
     "adjustText",
     "openpyxl",

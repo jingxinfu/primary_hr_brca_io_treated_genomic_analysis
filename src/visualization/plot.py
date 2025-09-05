@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from statannotations.Annotator import Annotator
 from ..settings  import COLOR_PAlETTE
 
-def responsePlot_highlight_er_low(data,features,ncols,ylabel='signature'):
+def responsePlot_highlight_er_low(data,features,ncols,ylabel='signature',no_breakdown=False):
     df = data[features+['Treatment_Arm','BestResponse','er_status']].copy()
     fig,axs = plt.subplots(2,ncols,figsize=(4*ncols,6),sharex=False,sharey=False)
     order=['Chemo->ICI','ICI->Chemo']
@@ -53,6 +53,9 @@ def responsePlot_highlight_er_low(data,features,ncols,ylabel='signature'):
         ax.set(ylabel=ylabel if i==0 else '',xlabel='')
         ax.tick_params(axis='x', labelrotation = 90)
         ax.legend_.remove()
+        if no_breakdown:
+            # remove this axis
+            ax.remove()
 
     plt.subplots_adjust(hspace=.5,wspace=.3)
     return fig

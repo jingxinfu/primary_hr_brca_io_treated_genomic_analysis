@@ -114,7 +114,19 @@ def plot_comut(
         bar_kwargs=bar_kwargs,
         mapping=side_mapping,
     )
-    
+    ## add TMB
+    bar_kwargs = {'width': 0.8, 'edgecolor': 'black'}
+    tmb_df = metadata[
+        ['sample'] + [k for k in COLOR_PAlETTE['Mutation clonality'] if k != 'N/A']
+    ]
+    comut_plot.add_bar_data(
+        tmb_df,
+        name='Mutation clonality',
+        mapping=COLOR_PAlETTE['Mutation clonality'],
+        stacked=True,
+        bar_kwargs=bar_kwargs,
+        ylabel='Muts/Mb',
+    )
     # add other category rows on top of the somatic mutation plot
     for col_name in visual_category_columns:
         cat_df = metadata.melt(
@@ -150,20 +162,9 @@ def plot_comut(
             stacked=True,
             ylabel='Mutational signatures',
         )
-    bar_kwargs = {'width': 0.8, 'edgecolor': 'black'}
+    
 
-    ## add TMB
-    tmb_df = metadata[
-        ['sample'] + [k for k in COLOR_PAlETTE['Mutation clonality'] if k != 'N/A']
-    ]
-    comut_plot.add_bar_data(
-        tmb_df,
-        name='Mutation clonality',
-        mapping=COLOR_PAlETTE['Mutation clonality'],
-        stacked=True,
-        bar_kwargs=bar_kwargs,
-        ylabel='Muts/Mb',
-    )
+
 
     # plot comut and add unified legend
     comut_plot.plot_comut(
@@ -249,17 +250,18 @@ def main(data_processed_folder):
         mutation_data=dataset.load('somatic_mutation'),
         metadata=metadata.loc[metadata.Timepoint==timepoint,:],
         visual_category_columns=[
-            'Treatment_Arm',
-            'RCB',
+           
             'Tumor type',
             'HR status',
+             'Treatment_Arm',
+            'RCB',
             # 'WES_facets_wgd_bool'
         ],
         visual_continuous_columns=[
             # 'WES_absolute_purity'
             ],
         mutation_signature_columns=[
-            'WES_'+x for x in COLOR_PAlETTE['Mutation_Signature'].keys() if x != 'N/A'
+            #'WES_'+x for x in COLOR_PAlETTE['Mutation_Signature'].keys() if x != 'N/A'
         ],
         figsize=(25, 10),
         wspace=0.1,
@@ -269,4 +271,7 @@ def main(data_processed_folder):
     comut_plot.figure.suptitle(f"{timepoint} (N={ n_samples})")
     comut_plot.figure.savefig(
         FigureDir / f'Somatic_Mutation_CoMutPlot_{timepoint}.pdf', bbox_inches='tight', dpi=300
+    )
+    comut_plot.figure.savefig(
+        FigureDir / f'Somatic_Mutation_CoMutPlot_{timepoint}.svg', bbox_inches='tight', dpi=300
     )
