@@ -23,16 +23,17 @@ def responsePlot_highlight_er_low(data,features,ncols,ylabel='signature',no_brea
         annot._pvalue_format.pvalue_format_string='{:.2g}'
         annot.apply_test()
         annot.annotate()
-
-        ax.set(ylabel=ylabel if i==0 else '',xlabel='')
-        ax.set_title(y.replace('bulkRNA_','').replace('WES_','').replace('_ssGSEA',''),y=1.3)
+        ax.tick_params(axis='both', labelsize=14)
+        ax.set(xlabel='')
+        ax.set_ylabel(ylabel if i==0 else '',fontsize=14)
+        ax.set_title(y.replace('bulkRNA_','').replace('WES_','').replace('_ssGSEA',''),y=1.3,fontsize=14)
         if i > 0:
             ax.legend_.remove()
         else:
            handles, labels = ax.get_legend_handles_labels()
            print(handles)
            by_label = dict(zip(labels, handles))
-           ax.legend(by_label.values(), by_label.keys(),loc=(-.5,1.15))
+           ax.legend(by_label.values(), by_label.keys(),loc=(-.5,1.2))
 
         ax=axs[1,i]
         x='Treatment_Arm'
@@ -50,8 +51,10 @@ def responsePlot_highlight_er_low(data,features,ncols,ylabel='signature',no_brea
         annot._pvalue_format.pvalue_format_string='{:.2g}'
         annot.apply_test()
         annot.annotate()
-        ax.set(ylabel=ylabel if i==0 else '',xlabel='')
+        ax.set(xlabel='')
+        ax.set_ylabel(ylabel if i==0 else '',fontsize=14)
         ax.tick_params(axis='x', labelrotation = 90)
+        ax.tick_params(axis='both', labelsize=14)
         ax.legend_.remove()
         if no_breakdown:
             # remove this axis
