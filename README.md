@@ -1,5 +1,9 @@
 # Genomic analysis scripts for "Efficacy, safety, and comprehensive biomarker investigation in patients with early-stage hormone receptor-positive/HER2-negative breast cancer treated with neoadjuvant nab-paclitaxel and pembrolizumab"
 
+## Citation
+
+Waks, A.G., Fu, J., Chu, X. et al. Efficacy, safety, and predictive biomarkers of neoadjuvant nab-paclitaxel and pembrolizumab in hormone receptor-positive breast cancer: A randomized pilot trial. Nat Commun 16, 10705 (2025). https://doi.org/10.1038/s41467-025-66667-y
+
 ## Analysis environment set up
 0. Download `mamba` following instruction: [mamba](https://github.com/mamba-org/mamba) 
 1. clone this repo:`git clone `
